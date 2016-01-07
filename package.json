@@ -1,0 +1,23 @@
+{
+  "name": "reddit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "typescript": "^2.2.0-dev.20161202"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/M0unir/reddit-clone.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/M0unir/reddit-clone/issues"
+  },
+  "homepage": "https://github.com/M0unir/reddit-clone#readme"
+}

@@ -20,11 +20,11 @@
     <div ng-repeat="post in posts | orderBy:'-upvotes'">
       <a href="" class="glyphicon glyphicon-thumbs-up" ng-click="incrementUpvotes(post)"></a>
       {{post.upvotes}}
-      <a ng-show="post.link" href="{{post.link}}" target="_blank">
-        <strong>{{post.title}}</strong>
+      <a ng-show="post.link" ng-href="{{post.link}}" target="_blank">
+        <strong>{{ post.title | capitalize }}</strong>
       </a>
       <span ng-hide="post.link">
-        <strong>{{post.title}}</strong>
+        <strong>{{ post.title | capitalize }}</strong>
       </span>
     </div>
     <br>
