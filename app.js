@@ -1,24 +1,26 @@
-var app = angular.module('RedditNews', []);
+var app = angular.module('RedditNews', ['ui.router']);
 
-app.controller('MainCtrl', ['$scope', function ($scope) {
+app.config([
+  '$stateProvider',
+  '$urlRouterProvider',
+  function ($stateProvider, $urlRouterProvider) {
+
+    $stateProvider
+      .state('home', {
+        url: '/home',
+        templateUrl: '/home.html',
+        controller: 'MainCtrl'
+      });
+
+    $urlRouterProvider.otherwise('home');
+  }
+]);
+
+
+app.controller('MainCtrl', ['$scope', 'PostsService', function ($scope, PostsService) {
   $scope.heading = 'Reddit Clone';
 
-  $scope.posts = [{
-    title: 'post 1',
-    upvotes: 5
-  }, {
-    title: 'post 2',
-    upvotes: 2
-  }, {
-    title: 'post 3',
-    upvotes: 15
-  }, {
-    title: 'post 4',
-    upvotes: 9
-  }, {
-    title: 'post 5',
-    upvotes: 4
-  }];
+  $scope.posts = PostsService.posts;
 
   //Add Post
   $scope.addPost = function () {
@@ -41,9 +43,31 @@ app.controller('MainCtrl', ['$scope', function ($scope) {
 
 }]);
 
-app.filter('capitalize', function() {
-    return function(s) {
-      return (angular.isString(s) && s.length > 0) ? s[0].toUpperCase() + s.substr(1).toLowerCase() : s;
-    }
+app.filter('capitalize', function () {
+  return function (s) {
+    return (angular.isString(s) && s.length > 0) ? s[0].toUpperCase() + s.substr(1).toLowerCase() : s;
+  }
 
 });
+
+app.factory('PostsService', [function () {
+  var Obj = {
+    posts: [{
+      title: 'Changing in the world economy!',
+      upvotes: 5
+    }, {
+      title: 'Best gaming convention happening today',
+      upvotes: 2
+    }, {
+      title: 'Africa, leader and pioneer of today\'s trendiest tech',
+      upvotes: 15
+    }, {
+      title: 'Change the way you are with these few easy steps',
+      upvotes: 9
+    }, {
+      title: 'Learn to understand yourself',
+      upvotes: 4
+    }]
+  };
+  return Obj;
+}]);
