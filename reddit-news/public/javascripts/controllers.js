@@ -17,13 +17,13 @@ app.controller('MainCtrl', ['$scope', 'PostsService', function ($scope, PostsSer
   };
 
   //Increment upvotes
-  $scope.incrementUpvotes = function(post) {
+  $scope.incrementUpvotes = function (post) {
     PostsService.upvotePost(post);
   }
 
 }]);
 
-app.controller('PostsCtrl', ['$scope', 'PostsService','postPromise', function ($scope, PostsService, postPromise) {
+app.controller('PostsCtrl', ['$scope', 'PostsService', 'postPromise', function ($scope, PostsService, postPromise) {
   console.log('Posts Ctrl loaded..');
   $scope.post = postPromise;
   $scope.heading = $scope.post.title;
@@ -32,19 +32,22 @@ app.controller('PostsCtrl', ['$scope', 'PostsService','postPromise', function ($
     if (!$scope.body || $scope.body == '') {
       return;
     }
-    
-    console.log('this.. ' + this);
-
     PostsService.addComment(postPromise._id, {
       author: $scope.author,
       body: $scope.body,
-    }).success(function(comment){
+    }).success(function (comment) {
       $scope.post.comments.push(comment);
     });
 
     // $scope.author = '';
     $scope.body = '';
   }
+
+  //Increment upvotes
+  $scope.incrementUpvotes = function (comment) {
+    PostsService.upvoteComment(postPromise, comment);
+  }
+
 
 
 }]);
