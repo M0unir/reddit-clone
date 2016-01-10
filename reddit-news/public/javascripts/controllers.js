@@ -17,8 +17,8 @@ app.controller('MainCtrl', ['$scope', 'PostsService', function ($scope, PostsSer
   };
 
   //Increment upvotes
-  $scope.incrementUpvotes = function (post) {
-    post.upvotes += 1;
+  $scope.incrementUpvotes = function(post) {
+    PostsService.upvotePost(post);
   }
 
 }]);
