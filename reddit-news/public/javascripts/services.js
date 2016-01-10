@@ -22,6 +22,15 @@ app.factory('PostsService', function ($http) {
     });
   };
 
+  Obj.getPost = function(id) {
+    return $http.get('/posts/' + id ).then(function(res){
+      return res.data;
+    });
+  };
+
+  Obj.addComment = function(id, comment) {
+    return $http.post('/posts/' + id + '/comments', comment);
+  }
 
 
   return Obj;

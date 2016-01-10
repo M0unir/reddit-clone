@@ -23,28 +23,26 @@ app.controller('MainCtrl', ['$scope', 'PostsService', function ($scope, PostsSer
 
 }]);
 
-app.controller('PostsCtrl', ['$scope', '$stateParams', 'PostsService', function ($scope, $stateParams, PostsService) {
+app.controller('PostsCtrl', ['$scope', 'PostsService','postPromise', function ($scope, PostsService, postPromise) {
   console.log('Posts Ctrl loaded..');
-
-  $scope.heading = $scope.post;
-  $scope.post = PostsService.posts[$stateParams.id];
-
-  console.log('post.. ' + $scope.post);
-  console.dir(this);
+  $scope.post = postPromise;
+  $scope.heading = $scope.post.title;
 
   $scope.addComment = function () {
     if (!$scope.body || $scope.body == '') {
       return;
     }
-  console.log('this.. ' + this);
+    
+    console.log('this.. ' + this);
 
-    $scope.post.comments.push({
+    PostsService.addComment(postPromise._id, {
       author: $scope.author,
       body: $scope.body,
-      upvotes: 0
+    }).success(function(comment){
+      $scope.post.comments.push(comment);
     });
 
-    $scope.author = '';
+    // $scope.author = '';
     $scope.body = '';
   }
 

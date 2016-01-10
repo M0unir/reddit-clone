@@ -19,7 +19,12 @@ app.config([
       .state('posts', {
         url: '/posts/{id}',
         templateUrl: '/posts.html',
-        controller: 'PostsCtrl'
+        controller: 'PostsCtrl',
+        resolve: {
+          postPromise: ['$stateParams', 'PostsService', function($stateParams, PostsService){
+            return PostsService.getPost($stateParams.id)
+          }]
+        }
       });
 
     $urlRouterProvider.otherwise('home');
