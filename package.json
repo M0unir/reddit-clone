@@ -4,6 +4,7 @@
   "description": "",
   "main": "app.js",
   "dependencies": {
+    "jsonwebtoken": "^7.2.1",
     "typescript": "^2.2.0-dev.20161202"
   },
   "devDependencies": {},
