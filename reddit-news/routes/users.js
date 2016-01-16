@@ -3,7 +3,11 @@ var router = express.Router();
 var passport = require('passport');
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
+var jwt = require('express-jwt');
 
+
+// Middleware for authentication (default userProperty:'user' && ENV['****'] for prod)
+var auth = jwt({secret: 'SECRET', userProperty: 'payload'});
 
 /* GET users listing. */
 // router.get('/', function (req, res, next) {
