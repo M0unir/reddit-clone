@@ -25,13 +25,31 @@ app.config([
             return PostsService.getPost($stateParams.id)
           }]
         }
+      })
+      .state('register', {
+        url: '/register',
+        templateUrl: '/register.html',
+        controller: 'authCtrl',
+        onEnter: ['$state', 'AuthService', function($state, AuthService){
+          if (auth.isLoggedIn()){
+            $state.go('home');
+          }
+        }]
+      })
+      .state('login', {
+        url: '/login',
+        templateUrl: '/login.html',
+        controller: 'authCtrl',
+        onEnter: ['$state', 'AuthService', function($state, AuthService){
+          if (auth.isLoggedIn()){
+            $state.go('home');
+          }
+        }]
       });
 
     $urlRouterProvider.otherwise('home');
   }
 ]);
-
-
 
 app.filter('capitalize', function () {
   return function (s) {
