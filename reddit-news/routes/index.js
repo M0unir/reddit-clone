@@ -60,6 +60,9 @@ router.get('/posts', function (req, res, next) {
 /* POST a post. */
 router.post('/posts', auth, function (req, res, next) {
   var post = new Post(req.body);
+  // Get the author name from token payload
+  post.author = req.payload.username;
+
   post.save(function (err, post) {
     if (err) {
       return next(err);
@@ -91,10 +94,11 @@ router.put('/posts/:post/upvote', auth, function (req, res, next) {
 
 /* POST a comment. */
 router.post('/posts/:post/comments', auth, function (req, res, next) {
-  var comment = new Comment(req.body);
+  var comment = new Comment(req.body);  
   // ref of post obj in our comment
   comment.post = req.post;
-
+  comment.author = req.payload.username;
+  
   comment.save(function (err, comment) {
     if (err) {
       return next(err);
