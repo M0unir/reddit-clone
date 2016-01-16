@@ -51,3 +51,23 @@ app.controller('PostsCtrl', ['$scope', 'PostsService', 'postPromise', function (
 
 
 }]);
+
+app.controller('AuthCtrl', ['$scope', '$state', 'AuthService', function($scope, $state, authService){
+  $scope.user = {};
+
+  $scope.register = function() {
+    auth.register($scope.user).error(function(error){
+      $scope.error = error;
+    }).then(function(){
+      $state.go('home');
+    })
+  };
+
+  $scope.login = function(){
+    auth.login($scope.user).error(function(err){
+      $scope.error = err;
+    }).then(function(){
+      $state.go('home');
+    })
+  }
+}])
