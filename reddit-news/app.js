@@ -5,11 +5,17 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+
 // Database connection
 var mongoose = require('mongoose');
 require('./models/Posts');
 require('./models/Comments');
 var db = mongoose.connect('mongodb://localhost/reddit-news');
+
+// Passport
+var passport = require('passport');
+require('./models/Users');
+require('./config/passport');
 
 // Routes
 var index = require('./routes/index');
@@ -29,6 +35,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Passport Initialisation
+app.use(passport.initialize());
+
+// Routes
 app.use('/', index);
 app.use('/users', users);
 
