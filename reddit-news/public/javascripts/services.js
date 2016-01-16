@@ -40,9 +40,9 @@ app.factory('PostsService', function ($http) {
 };
 
   return Obj;
-})
+});
 
-  .factory('auth', ['$http', '$window', function($http, $window) {
+  app.factory('AuthService', ['$http', '$window', function($http, $window) {
     var auth = {};
 
     // Check if user is logged in
