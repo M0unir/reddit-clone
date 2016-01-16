@@ -29,9 +29,9 @@ app.config([
       .state('register', {
         url: '/register',
         templateUrl: '/register.html',
-        controller: 'authCtrl',
+        controller: 'AuthCtrl',
         onEnter: ['$state', 'AuthService', function($state, AuthService){
-          if (auth.isLoggedIn()){
+          if (AuthService.isLoggedIn()){
             $state.go('home');
           }
         }]
@@ -39,9 +39,9 @@ app.config([
       .state('login', {
         url: '/login',
         templateUrl: '/login.html',
-        controller: 'authCtrl',
+        controller: 'AuthCtrl',
         onEnter: ['$state', 'AuthService', function($state, AuthService){
-          if (auth.isLoggedIn()){
+          if (AuthService.isLoggedIn()){
             $state.go('home');
           }
         }]
