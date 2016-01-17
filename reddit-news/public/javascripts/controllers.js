@@ -52,22 +52,33 @@ app.controller('PostsCtrl', ['$scope', 'PostsService', 'postPromise', function (
 
 }]);
 
-app.controller('AuthCtrl', ['$scope', '$state', 'AuthService', function($scope, $state, authService){
+app.controller('AuthCtrl', ['$scope', '$state', 'AuthService', function($scope, $state, AuthService){
+  console.log('AuthCtrl loaded..');
   $scope.user = {};
 
   $scope.register = function() {
-    auth.register($scope.user).error(function(error){
+    AuthService.register($scope.user).error(function(error){
       $scope.error = error;
     }).then(function(){
       $state.go('home');
     })
   };
 
-  $scope.login = function(){
-    auth.login($scope.user).error(function(err){
+  $scope.logIn = function(){
+    AuthService.logIn($scope.user).error(function(err){
       $scope.error = err;
     }).then(function(){
       $state.go('home');
     })
   }
-}])
+}]);
+
+  app.controller("NavCtrl", [
+    "$scope",
+    "AuthService",
+    function($scope, AuthService) {
+      $scope.isLoggedIn = AuthService.isLoggedIn;
+      $scope.currentUser = AuthService.currentUser;
+      $scope.logOut = AuthService.logOut;
+    }
+  ]);

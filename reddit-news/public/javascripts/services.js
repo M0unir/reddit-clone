@@ -64,13 +64,13 @@ app.factory('PostsService', function ($http) {
 
     // Get token from localStorage
     auth.getToken = function(token) {
-      $window.localStorage['reddit-news-token'];
+      return $window.localStorage['reddit-news-token'];
     };
 
     // Get current user
     auth.currentUser = function(){
       if (auth.isLoggedIn()){
-        var token = auth.getToken;
+        var token = auth.getToken();
         var payload = JSON.parse($window.atob(token.split('.')[1]));
 
         return payload.username;
@@ -79,18 +79,18 @@ app.factory('PostsService', function ($http) {
 
     // Register
     auth.register = function(user) {
-      return $http.post('/register', user).success(function(data){
+      return $http.post('/users/register', user).success(function(data){
         auth.saveToken(data.token);
-      })
+      });
     };
 
-    auth.login = function(user) {
-      return $http.post('/login', user).success(function(data){
+    auth.logIn = function(user) {
+      return $http.post('/users/login', user).success(function(data){
         auth.saveToken(data.token);
-      })
-    };
+      });
+    }
 
-    auth.logout = function() {
+    auth.logOut = function() {
       $window.localStorage.removeItem('reddit-news-token');
     }
 

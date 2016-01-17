@@ -6,21 +6,26 @@
   <link rel="stylesheet" href="/stylesheets/app.css">
 </head>
 
-<body ng-app="RedditNews" ng-controller="MainCtrl">
-
-      <ui-view></ui-view>
-
+<body ng-app="RedditNews" >
+ <nav class="navbar navbar-default pull-right" ng-controller="NavCtrl">
+    <ul class="nav navbar-nav">
+      <li ng-show="isLoggedIn()"><a>{{ currentUser() }}</a></li>
+      <li ng-show="isLoggedIn()"><a href="" ng-click="logOut()">Log Out</a></li>
+      <li ng-hide="isLoggedIn()"><a href="/#/login">Log In</a></li>
+      <li ng-hide="isLoggedIn()"><a href="/#/register">Register</a></li>
+    </ul>
+  </nav>
+  <div class="container">
+    <ui-view></ui-view>
+  </div>
   <footer class="footer">
     <div class="container">
       <span class="text-muted">Reddit clone.</span>
     </div>
   </footer>
-
   <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-  
   <script type="text/ng-template" id="/home.html">
-  <div class="container">
     <div class="jumbotron text-center">
       <div class="text-center">
         <h1>{{ heading }}</h1>
@@ -52,11 +57,8 @@
       </div>
       <button class="btn btn-danger btn-sm" type="submit">Add</button>
     </form>
-  </div>
   </script>
-
-    <script type="text/ng-template" id="/posts.html">
-      <div class="container">
+  <script type="text/ng-template" id="/posts.html">
         <div class="jumbotron text-center">
           <div class="text-center">
             <h1>{{ heading }}</h1>
@@ -90,12 +92,10 @@
           </div>
           <button class="btn btn-danger btn-sm" type="submit">Add comment</button>
         </form>
-      </div>
     </script>
-
-    <script type="text/ng-template" id="/register.html">
+  <script type="text/ng-template" id="/register.html">
       <div class="page-header">
-        <h1>Flapper News</h1>
+        <h1>Reddit News</h1>
       </div>
 
       <div ng-show="error" class="alert alert-danger row">
@@ -120,10 +120,9 @@
         <button type="submit" class="btn btn-primary">Register</button>
       </form>
     </script>
-
-        <script type="text/ng-template" id="/login.html">
+  <script type="text/ng-template" id="/login.html">
       <div class="page-header">
-        <h1>Flapper News</h1>
+        <h1>Reddit News</h1>
       </div>
 
       <div ng-show="error" class="alert alert-danger row">
@@ -131,7 +130,7 @@
       </div>
 
       <form ng-submit="logIn()">
-        <h3>Register</h3>
+        <h3>Login</h3>
 
         <div class="form-group">
           <input type="text"
@@ -145,10 +144,10 @@
           placeholder="Password"
           ng-model="user.password"></input>
         </div>
-        <button type="submit" class="btn btn-primary">Register</button>
+        <button type="submit" class="btn btn-primary">Login</button>
       </form>
     </script>
-
+  
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.10/angular.min.js"></script>
   <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.js"></script>
   <script src="javascripts/angularApp.js"></script>
