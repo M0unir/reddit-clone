@@ -1,14 +1,18 @@
-app.controller('MainCtrl', ['$scope', 'PostsService', function ($scope, PostsService) {
+app.controller('MainCtrl', ['$scope', 'PostsService', 'AuthService', function ($scope, PostsService, AuthService) {
   $scope.heading = 'Reddit Clone';
+  // Exposing isLoggedIn method
+  $scope.isLoggedIn = AuthService.isLoggedIn;
 
   $scope.posts = PostsService.posts;
-
+  console.log($scope.posts);
+  
   //Add Post
   $scope.addPost = function () {
     if (!$scope.title || $scope.title === '') {
       return;
     }
     PostsService.createPost({
+      author: $scope.author,
       title: $scope.title,
       link: $scope.link
     });
@@ -23,8 +27,11 @@ app.controller('MainCtrl', ['$scope', 'PostsService', function ($scope, PostsSer
 
 }]);
 
-app.controller('PostsCtrl', ['$scope', 'PostsService', 'postPromise', function ($scope, PostsService, postPromise) {
+app.controller('PostsCtrl', ['$scope', 'PostsService', 'postPromise', 'AuthService', function ($scope, PostsService, postPromise, AuthService) {
   console.log('Posts Ctrl loaded..');
+    // Exposing isLoggedIn method
+  $scope.isLoggedIn = AuthService.isLoggedIn;
+
   $scope.post = postPromise;
   $scope.heading = $scope.post.title;
 

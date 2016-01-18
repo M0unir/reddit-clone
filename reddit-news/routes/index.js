@@ -98,7 +98,6 @@ router.post('/posts/:post/comments', auth, function (req, res, next) {
   // ref of post obj in our comment
   comment.post = req.post;
   comment.author = req.payload.username;
-  
   comment.save(function (err, comment) {
     if (err) {
       return next(err);

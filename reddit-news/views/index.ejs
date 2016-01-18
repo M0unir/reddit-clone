@@ -7,15 +7,29 @@
 </head>
 
 <body ng-app="RedditNews" >
- <nav class="navbar navbar-default pull-right" ng-controller="NavCtrl">
-    <ul class="nav navbar-nav">
+  
+ <!--<nav class="navbar navbar-default pull-right" >
+
+  </nav>-->
+
+
+
+
+
+
+
+  <div class="container">
+    <div class="header clearfix">
+  <nav ng-controller="NavCtrl">
+    <ul class="nav nav-pills pull-right">
       <li ng-show="isLoggedIn()"><a>{{ currentUser() }}</a></li>
       <li ng-show="isLoggedIn()"><a href="" ng-click="logOut()">Log Out</a></li>
       <li ng-hide="isLoggedIn()"><a href="/#/login">Log In</a></li>
       <li ng-hide="isLoggedIn()"><a href="/#/register">Register</a></li>
     </ul>
   </nav>
-  <div class="container">
+  <h3 class="text-muted">reddit-clone</h3>
+</div>
     <ui-view></ui-view>
   </div>
   <footer class="footer">
@@ -25,6 +39,7 @@
   </footer>
   <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  
   <script type="text/ng-template" id="/home.html">
     <div class="jumbotron text-center">
       <div class="text-center">
@@ -42,12 +57,15 @@
       <span ng-hide="post.link">
         <strong>{{ post.title | capitalize }}</strong>
       </span>
+      <span ng-show="post.author">
+        posted by <a>{{post.author}}</a> |
+      </span>
       <span>
         <a href="#/posts/{{post._id}}">Comments</a>
       </span>
     </div>
     <br>
-    <form ng-submit="addPost()">
+    <form ng-submit="addPost()" ng-show="isLoggedIn()">
       <h4>Add posts</h4>
       <div class="form-group">
         <input type="text" class="form-control" placeholder="Title" ng-model="title"></input>
@@ -57,6 +75,9 @@
       </div>
       <button class="btn btn-danger btn-sm" type="submit">Add</button>
     </form>
+    <div ng-hide="isLoggedIn()">
+      <h3>You need to <a href="/#/login">Log In</a> or <a href="/#/register">Register</a> before you can add a post.</h3>
+    </div>
   </script>
   <script type="text/ng-template" id="/posts.html">
         <div class="jumbotron text-center">
@@ -82,21 +103,18 @@
  
         </div>
         <br>
-        <form ng-submit="addComment()">
+        <form ng-submit="addComment()" ng-show="isLoggedIn()">
           <h4>Add Comment</h4>
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Your name.." ng-model="author"></input>
-          </div>
           <div class="form-group">
             <input type="textarea" class="form-control" placeholder="Your comment.." ng-model="body"></input>
           </div>
           <button class="btn btn-danger btn-sm" type="submit">Add comment</button>
         </form>
+        <div ng-hide="isLoggedIn()">
+          <h3>You need to <a href="/#/login">Log In</a> or <a href="/#/register">Register</a> before you can comment.</h3>
+        </div>
     </script>
   <script type="text/ng-template" id="/register.html">
-      <div class="page-header">
-        <h1>Reddit News</h1>
-      </div>
 
       <div ng-show="error" class="alert alert-danger row">
         <span>{{ error.message }}</span>
@@ -121,9 +139,6 @@
       </form>
     </script>
   <script type="text/ng-template" id="/login.html">
-      <div class="page-header">
-        <h1>Reddit News</h1>
-      </div>
 
       <div ng-show="error" class="alert alert-danger row">
         <span>{{ error.message }}</span>

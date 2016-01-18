@@ -1,4 +1,4 @@
-app.factory('PostsService', function ($http) {
+app.factory('PostsService', function($http, AuthService) {
   var Obj = {
     posts: []
   };
@@ -10,14 +10,18 @@ app.factory('PostsService', function ($http) {
   };
 
   Obj.createPost = function (post) {
-    return $http.post('/posts', post).success(function (data) {
+    return $http.post('/posts', post, {
+      headers: {Authorization: 'Bearer ' + AuthService.getToken()}
+    }).success(function (data) {
       Obj.posts.push(data);
     });
   };
 
-  Obj.upvotePost = function (post) {
+  Obj.upvotePost = function(post) {
     console.log(post);
-    return $http.put('/posts/' + post._id + '/upvote').success(function (data) {
+    return $http.put('/posts/' + post._id + '/upvote', null,  {
+      headers: {Authorization: 'Bearer ' + AuthService.getToken()}
+    }).success(function (data) {
       post.upvotes += 1;
     });
   };
@@ -29,12 +33,15 @@ app.factory('PostsService', function ($http) {
   };
 
   Obj.addComment = function(id, comment) {
-    return $http.post('/posts/' + id + '/comments', comment);
+    return $http.post('/posts/' + id + '/comments', comment,  {
+      headers: {Authorization: 'Bearer ' + AuthService.getToken()}
+    });
   };
 
   Obj.upvoteComment = function(post, comment) {
-  return $http.put('/posts/' + post._id + '/comments/'+ comment._id + '/upvote')
-    .success(function(data){
+  return $http.put('/posts/' + post._id + '/comments/'+ comment._id + '/upvote', null,  {
+      headers: {Authorization: 'Bearer ' + AuthService.getToken()}
+    }).success(function(data){
       comment.upvotes += 1;
     });
 };
