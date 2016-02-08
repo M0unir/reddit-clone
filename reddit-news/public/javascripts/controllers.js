@@ -5,7 +5,7 @@ app.controller('MainCtrl', ['$scope', 'PostsService', 'AuthService', function ($
 
   $scope.posts = PostsService.posts;
   console.log($scope.posts);
-  
+
   //Add Post
   $scope.addPost = function () {
     if (!$scope.title || $scope.title === '') {
@@ -27,13 +27,18 @@ app.controller('MainCtrl', ['$scope', 'PostsService', 'AuthService', function ($
 
 }]);
 
-app.controller('PostsCtrl', ['$scope', 'PostsService', 'postPromise', 'AuthService', function ($scope, PostsService, postPromise, AuthService) {
+app.controller('PostsCtrl', ['$scope', 'PostsService', 'postPromise', 'AuthService','$window', function ($scope, PostsService, postPromise, AuthService, $window) {
   console.log('Posts Ctrl loaded..');
     // Exposing isLoggedIn method
   $scope.isLoggedIn = AuthService.isLoggedIn;
 
   $scope.post = postPromise;
   $scope.heading = $scope.post.title;
+  
+  // Go back
+  $scope.goBack = function () {
+    $window.history.back();
+  };
 
   $scope.addComment = function () {
     if (!$scope.body || $scope.body == '') {
