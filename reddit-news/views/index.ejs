@@ -78,10 +78,10 @@
             <h2>{{ heading }}</h2>
           </div>
             <h4> Link: 
-              <a ng-show="post.link" href="{{post.link}}">
+              <a ng-show="post.link" href="{{post.link | linkFilter }}" target="_blank">
                 {{post.link}}
               </a>
-              <span ng-hide="post.link">
+              <span ng-hide="post.link" target="_blank">
                 {{post.link}}
               </span>
             </h4>
