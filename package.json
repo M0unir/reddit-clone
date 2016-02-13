@@ -1,23 +1,22 @@
 {
-  "name": "reddit",
-  "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
-  "dependencies": {
-    "typescript": "^2.2.0-dev.20161202"
-  },
-  "devDependencies": {},
+  "name": "reddit-news",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./bin/www"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/M0unir/reddit-clone.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/M0unir/reddit-clone/issues"
-  },
-  "homepage": "https://github.com/M0unir/reddit-clone#readme"
+  "dependencies": {
+    "body-parser": "~1.0.0",
+    "cookie-parser": "~1.0.1",
+    "debug": "~0.7.4",
+    "ejs": "~0.8.5",
+    "express": "~4.12.2",
+    "express-jwt": "^3.0.0",
+    "jsonwebtoken": "^5.0.0",
+    "mongoose": "^4.0.2",
+    "morgan": "~1.5.1",
+    "passport": "^0.2.1",
+    "passport-local": "^1.0.0",
+    "serve-favicon": "~2.2.0"
+  }
 }
