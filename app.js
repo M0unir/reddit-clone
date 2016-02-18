@@ -21,7 +21,7 @@ var users = require('./routes/users');
 
 var app = express();
 
-mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/reddit-news');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/reddit-news');
 
 
 // view engine setup
