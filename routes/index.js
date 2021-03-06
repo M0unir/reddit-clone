@@ -6,7 +6,7 @@ var Comment = mongoose.model('Comment');
 var jwt = require('express-jwt');
 
 // Middleware for authentication (default userProperty:'user' && use ENV['****'] for prod)
-var auth = jwt({secret: 'SECRET', userProperty: 'payload'});
+var auth = jwt({ secret: 'SECRET', userProperty: 'payload', algorithms: ['RS256'] });
 
 // Preloading post object
 router.param('post', function (req, res, next, id) {
@@ -94,7 +94,7 @@ router.put('/posts/:post/upvote', auth, function (req, res, next) {
 
 /* POST a comment. */
 router.post('/posts/:post/comments', auth, function (req, res, next) {
-  var comment = new Comment(req.body);  
+  var comment = new Comment(req.body);
   // ref of post obj in our comment
   comment.post = req.post;
   comment.author = req.payload.username;
@@ -114,13 +114,13 @@ router.post('/posts/:post/comments', auth, function (req, res, next) {
 });
 
 /* Upvote a comment. */
-router.put('/posts/:post/comments/:comment/upvote', auth,  function (req, res, next) {
-	req.comment.upvote(function (err, comment) {
-		if (err) {
-			return next(err);
-		}
-		res.json(comment);
-	});
+router.put('/posts/:post/comments/:comment/upvote', auth, function (req, res, next) {
+  req.comment.upvote(function (err, comment) {
+    if (err) {
+      return next(err);
+    }
+    res.json(comment);
+  });
 });
 
 module.exports = router;
