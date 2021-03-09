@@ -6,7 +6,7 @@ var Comment = mongoose.model('Comment');
 var jwt = require('express-jwt');
 
 // Middleware for authentication (default userProperty:'user' && use ENV['****'] for prod)
-var auth = jwt({ secret: 'SECRET', userProperty: 'payload', algorithms: ['RS256'] });
+var auth = jwt({ secret: 'SECRET', userProperty: 'payload', algorithms: ['HS256'] });
 
 // Preloading post object
 router.param('post', function (req, res, next, id) {
